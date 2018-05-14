@@ -400,8 +400,9 @@ void showRtViewer()
 	viewer->spinOnce (200, true);
 	boost::this_thread::sleep (boost::posix_time::milliseconds (1000));
 
-	rotateCloudPoint(cloud_ptr, cloud_ptr1, 90);
-	pcl::io::savePCDFileASCII ("tmp1.pcd", pcloud2);  
+	rotateCloudPoint(cloud_ptr, cloud_ptr1, 0);
+	//rotateCloudPoint(cloud_ptr, cloud_ptr1, 90);
+	//pcl::io::savePCDFileASCII ("tmp1.pcd", pcloud2);  
 	int angel = 20;
 	while(1)
 	{
