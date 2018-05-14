@@ -267,19 +267,20 @@ void Cpcl_mfc_1Dlg::OnLbnSelchangeList2()
 
 void Cpcl_mfc_1Dlg::OnBnClickedButton2()
 {
+	// TODO: Add your control notification handler code here
 	// TODO: Add your control notification handler code here   
-    // 设置过滤器   
-    TCHAR szFilter[] = _T("文本文件(*.txt)|*.txt||");   
-    // 构造打开文件对话框   
-    CFileDialog fileDlg(TRUE, _T("txt"), NULL, 0, szFilter, this);   
-    CString strFilePath;   
-   
-    // 显示打开文件对话框   
-    if (IDOK == fileDlg.DoModal())   
-    {   
-        // 如果点击了文件对话框上的“打开”按钮，则将选择的文件路径显示到编辑框里   
-        strFilePath = fileDlg.GetPathName();   
-        SetDlgItemText(IDC_STATIC, strFilePath);
+	// 设置过滤器   
+	TCHAR szFilter[] = _T("文本文件(*.txt)|*.txt||");   
+	// 构造打开文件对话框   
+	CFileDialog fileDlg(TRUE, _T("txt"), NULL, 0, szFilter, this);   
+	CString strFilePath;   
+
+	// 显示打开文件对话框   
+	if (IDOK == fileDlg.DoModal())   
+	{   
+		// 如果点击了文件对话框上的“打开”按钮，则将选择的文件路径显示到编辑框里   
+		strFilePath = fileDlg.GetPathName();   
+		SetDlgItemText(IDC_STATIC, strFilePath);
 
 		char preFileName[200];
 		char postFileName[200];
@@ -288,8 +289,8 @@ void Cpcl_mfc_1Dlg::OnBnClickedButton2()
 		backslashCopy(preFileName, postFileName);
 
 		//txt2Pcd(postFileName);
-		txt2PcdNormalize4Color(postFileName);
+		txt2PcdNormalize4Color(postFileName, 1);
 		//showViewer();
 		showViewerNew();
-    }   
+	}   
 }

@@ -14,5 +14,5 @@ extern int txt2PcdNormalize(char *fileName);
 extern void showViewer();
 extern void showRtViewer();
 extern void showViewerNew();
-extern int txt2PcdNormalize4Color(char *fileName);
+extern int txt2PcdNormalize4Color(char *fileName, int scale);
 

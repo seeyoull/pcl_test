@@ -50,20 +50,21 @@ int numofPoints(char* fname){
 	fclose(fp);  
 	return n;  
 }  
+
 int txt2Pcd(char *fileName)  
 {  
-    int n = 1; //n用来计文件中点个数      
+    int n = 1; //n锟斤拷锟斤拷锟斤拷锟斤拷?锟叫碉拷??      
 	FILE *fp_1;  
 	fp_1 = fopen(fileName,"r");  
-	n = numofPoints(fileName);//使用numofPoints函数计算文件中点个数  
+	n = numofPoints(fileName);//使锟斤拷numofPoints锟斤拷?锟斤拷锟斤拷锟斤拷?锟叫碉拷??  
 	std::cout << "there are "<<n<<" points in the file..." <<std::endl;  
-	//新建一个点云文件，然后将结构中获取的xyz值传递到点云指针cloud中。  
+	//锟铰斤拷一?锟斤拷锟斤拷募?锟斤拷然?锟斤拷峁癸拷谢?锟斤拷锟絰yz值锟斤拷锟捷碉拷锟斤拷锟斤拷指?cloud锟叫★拷  
 	pcl::PointCloud<pcl::PointXYZ> cloud;  
 	cloud.width    = n;  
 	cloud.height   = 1;  
 	cloud.is_dense = false;  
 	cloud.points.resize (cloud.width * cloud.height);  
-	//将点云读入并赋给新建点云指针的xyz      
+	//锟斤拷锟斤拷锟狡讹拷?锟斤拷锟斤拷?陆锟斤拷锟斤拷锟街革拷?锟斤拷xyz      
 	double x,y,z;  
 	int i = 0;  
 	//int num = fscanf(fp_1,"%lf,%lf,%lf\n",&x,&y,&z);
@@ -75,7 +76,7 @@ int txt2Pcd(char *fileName)
 		++i;  
 	}  
 	fclose(fp_1);  
-	//将点云指针指向的内容传给pcd文件  
+	//锟斤拷锟斤拷锟斤拷指?指?锟斤拷锟斤拷荽锟斤拷?cd锟斤拷?  
   
 	pcl::io::savePCDFileASCII ("tmp.pcd", cloud);  
   
@@ -101,22 +102,22 @@ double myMax(double x, double y, double z)
 }
 int txt2PcdNormalize(char *fileName)  
 {  
-    int n = 1; //n用来计文件中点个数    
+    int n = 1; //n锟斤拷锟斤拷锟斤拷锟斤拷?锟叫碉拷??    
 	double maxValue = 0;
 	double maxValueTmp;
 	double ratio;
 
 	FILE *fp_1;  
 	fp_1 = fopen(fileName,"r");  
-	n = numofPoints(fileName);//使用numofPoints函数计算文件中点个数  
+	n = numofPoints(fileName);//使锟斤拷numofPoints锟斤拷?锟斤拷锟斤拷锟斤拷?锟叫碉拷??  
 	std::cout << "there are "<<n<<" points in the file..." <<std::endl;  
-	//新建一个点云文件，然后将结构中获取的xyz值传递到点云指针cloud中。  
+	//锟铰斤拷一?锟斤拷锟斤拷募?锟斤拷然?锟斤拷峁癸拷谢?锟斤拷锟絰yz值锟斤拷锟捷碉拷锟斤拷锟斤拷指?cloud锟叫★拷  
 	pcl::PointCloud<pcl::PointXYZ> cloud;  
 	cloud.width    = n;  
 	cloud.height   = 1;  
 	cloud.is_dense = false;  
 	cloud.points.resize (cloud.width * cloud.height);  
-	//将点云读入并赋给新建点云指针的xyz      
+	//锟斤拷锟斤拷锟狡讹拷?锟斤拷锟斤拷?陆锟斤拷锟斤拷锟街革拷?锟斤拷xyz      
 	double x,y,z;  
 	int i = 0;  
 	//int num = fscanf(fp_1,"%lf,%lf,%lf\n",&x,&y,&z);
@@ -144,7 +145,7 @@ int txt2PcdNormalize(char *fileName)
 	}
 
 	fclose(fp_1);  
-	//将点云指针指向的内容传给pcd文件  
+	//锟斤拷锟斤拷锟斤拷指?指?锟斤拷锟斤拷荽锟斤拷?cd锟斤拷?  
   
 	pcl::io::savePCDFileASCII ("tmp.pcd", cloud);  
   
@@ -154,29 +155,33 @@ int txt2PcdNormalize(char *fileName)
 
 }
 
-int txt2PcdNormalize4Color(char *fileName)  
+int txt2PcdNormalize4Color(char *fileName, int scale)  
 {  
-    int n = 1; //n用来计文件中点个数    
+    int n = 1; //n锟斤拷锟斤拷锟斤拷锟斤拷?锟叫碉拷??    
 	double maxValue = 0;
 	double maxValueZ = 0;
 	double minValueZ = 0;
+	double maxValueX = 0;
+	double minValueX = 0;
+	double maxValueY = 0;
+	double minValueY = 0;
 	double maxValueTmp;
 	double ratio;
-	double deltaRgb = 0;
-	double tmpA;
+	double deltaRgbX, deltaRgbY, deltaRgbZ = 0;
+	double tmpX, tmpY, tmpZ;
 
 	FILE *fp_1;  
 	fp_1 = fopen(fileName,"r");  
-	n = numofPoints(fileName);//使用numofPoints函数计算文件中点个数  
+	n = numofPoints(fileName);//使锟斤拷numofPoints锟斤拷?锟斤拷锟斤拷锟斤拷?锟叫碉拷??  
 	std::cout << "there are "<<n<<" points in the file..." <<std::endl;  
-	//新建一个点云文件，然后将结构中获取的xyz值传递到点云指针cloud中。  
+	//锟铰斤拷一?锟斤拷锟斤拷募?锟斤拷然?锟斤拷峁癸拷谢?锟斤拷锟絰yz值锟斤拷锟捷碉拷锟斤拷锟斤拷指?cloud锟叫★拷  
 	//pcl::PointCloud<pcl::PointXYZ> cloud; 
 	pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZRGB>);
 	cloud->width    = n;  
 	cloud->height   = 1;  
 	cloud->is_dense = false;  
 	cloud->points.resize (cloud->width * cloud->height);  
-	//将点云读入并赋给新建点云指针的xyz      
+	//锟斤拷锟斤拷锟狡讹拷?锟斤拷锟斤拷?陆锟斤拷锟斤拷锟街革拷?锟斤拷xyz      
 	double x,y,z;  
 	int i = 0;  
 	uint8_t r(255), g(0), b(15);
@@ -202,17 +207,46 @@ int txt2PcdNormalize4Color(char *fileName)
 		{
 			minValueZ = z;
 		}
+
+		if(maxValueX < x)
+		{
+			maxValueX = x;
+		}
+		if(minValueX > x)
+		{
+			minValueX = x;
+		}
+
+		if(maxValueY < y)
+		{
+			maxValueY = y;
+		}
+		if(minValueY > y)
+		{
+			minValueY = y;
+		}
+
 	}
 
-	tmpA = maxValueZ - minValueZ;
+	tmpX = maxValueX - minValueX;
+	tmpY = maxValueY - minValueY;
+	tmpZ = maxValueZ - minValueZ;
 
 	ratio = 1 / maxValue * 0.25;
-	deltaRgb = 255/tmpA;
+	deltaRgbX = 255/tmpX;
+	deltaRgbY = 255/tmpY;
+	deltaRgbZ = 255/tmpZ;
 
 	for(int j = 0; j < i; j++)
 	{
-		r = 255 * (-minValueZ / tmpA) + deltaRgb * cloud->points[j].z;
-		g = 255 * (minValueZ / tmpA) - deltaRgb * cloud->points[j].z;
+#if 0
+		r = 255 * (cloud->points[j].x - minValueX)/tmpX;
+		g = 255 * (cloud->points[j].y - minValueY)/tmpY;
+		b = 255 * (cloud->points[j].z - minValueZ)/tmpZ;
+#endif
+		r = -255 * (cloud->points[j].z - minValueZ)/tmpZ;
+		g = 255 * (cloud->points[j].z - minValueZ)/tmpZ;
+		b = 100;		
 
 		cloud->points[j].x = cloud->points[j].x * ratio;
 		cloud->points[j].y = cloud->points[j].y * ratio;
@@ -227,7 +261,7 @@ int txt2PcdNormalize4Color(char *fileName)
 	}
 
 	fclose(fp_1);  
-	//将点云指针指向的内容传给pcd文件  
+	//锟斤拷锟斤拷锟斤拷指?指?锟斤拷锟斤拷荽锟斤拷?cd锟斤拷?  
   
 	pcl::io::savePCDFileASCII ("tmp.pcd", *cloud);  
   
@@ -273,8 +307,8 @@ boost::shared_ptr<pcl::visualization::PCLVisualizer> rgbVis (pcl::PointCloud<pcl
 	boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer (new pcl::visualization::PCLVisualizer ("3D Viewer"));
 	viewer->setBackgroundColor (0, 0, 0);
 	/***************************************************************************************************************
-	设置窗口的背景颜色后，创建一个颜色处理对象，PointCloudColorHandlerRGBField利用这样的对象显示自定义颜色数据，PointCloudColorHandlerRGBField
-	对象得到每个点云的RGB颜色字段，
+	锟斤拷锟矫达拷锟节的憋拷锟斤拷锟斤拷色?锟斤拷锟斤拷锟揭伙拷?锟缴拷锟斤拷锟斤拷锟斤拷?锟絇ointCloudColorHandlerRGBField锟斤拷锟斤拷锟斤拷?锟侥讹拷?锟绞撅拷远锟斤拷锟斤拷锟缴拷?锟捷ｏ拷PointCloudColorHandlerRGBField
+	锟斤拷?玫锟矫匡拷?锟斤拷频锟絉GB锟斤拷色锟街段ｏ拷
 	**************************************************************************************************************/
   
 	pcl::visualization::PointCloudColorHandlerRGBField<pcl::PointXYZRGB> rgb(cloud);
@@ -324,7 +358,7 @@ void keyboardEventOccurred(const pcl::visualization::KeyboardEvent& event, void*
 void rotateCloudPoint(
 						pcl::PointCloud<pcl::PointXYZ>::Ptr src_cloud, 
 						pcl::PointCloud<pcl::PointXYZ>::Ptr dst_cloud,
-						float angle) //45度
+						float angle) //45锟斤拷
 {
 	int i;
 	double x,y,z;
@@ -341,13 +375,15 @@ void rotateCloudPoint(
 		dst_cloud->points.push_back( pcl::PointXYZ(x,y,z) );
 	}
 	dst_cloud->width = i;
+	dst_cloud->height = 1;
 }
 
 void showRtViewer()
 {
 	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_ptr (new pcl::PointCloud<pcl::PointXYZ>);
-	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_ptr1 (new pcl::PointCloud<pcl::PointXYZ>);
+	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_ptr1 (new pcl::PointCloud<pcl::PointXYZ>);	
     pcl::PointCloud<pcl::PointXYZ> &pcloud1 = *cloud_ptr;
+	pcl::PointCloud<pcl::PointXYZ> &pcloud2 = *cloud_ptr1;
     boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer (new pcl::visualization::PCLVisualizer ("3D Viewer"));
         
     pcloud1.points.push_back( pcl::PointXYZ(10, 10, 80) );
@@ -364,7 +400,8 @@ void showRtViewer()
 	viewer->spinOnce (200, true);
 	boost::this_thread::sleep (boost::posix_time::milliseconds (1000));
 
-	rotateCloudPoint(cloud_ptr, cloud_ptr1, 0);
+	rotateCloudPoint(cloud_ptr, cloud_ptr1, 90);
+	pcl::io::savePCDFileASCII ("tmp1.pcd", pcloud2);  
 	int angel = 20;
 	while(1)
 	{
